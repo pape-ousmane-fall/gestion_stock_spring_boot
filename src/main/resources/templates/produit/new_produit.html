@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Produit Management System</title> 
+</head>
+<body>
+	<div th:include="fragment/header.html"></div>
+	<div class="container">
+		<h1>Produit Management System</h1>
+		<hr>
+		<h2>Save Produit</h2>
+
+		<form action="#" th:action="@{/saveProduit}" th:object="${produit}"
+			method="POST">
+
+			<input type="text" th:field="*{libelle}" placeholder="libelle"
+				class="form-control mb-4 col-4" required> <input type="text"
+				th:field="*{prix}" placeholder="prix"
+				class="form-control mb-4 col-4" required> <input type="text"
+				th:field="*{quantite}" placeholder="quantite"
+				class="form-control mb-4 col-4" required>
+				 <select class="form-control mb-4 col-4" th:field="*{categorie}" required>
+					<th:block th:each="rl :${listecategorie}">
+					<option th:value="${rl.idcategorie}" th:text="${rl.libelle}" />
+					<th:block />
+				</select> 
+				<select class="form-control mb-4 col-4" th:field="*{boutique}"
+				required>
+					<th:block th:each="rl :${listeboutique}">
+						<option th:value="${rl.idboutique}" th:text="${rl.libelle}" />
+					<th:block />
+				</select>
+
+			<button type="submit" class="btn btn-info col-2">Save
+				Employee</button>
+		</form>
+
+		<hr>
+
+		<a th:href="@{/produits}"> Back to Employee List</a>
+	</div>
+</body>
+</html>

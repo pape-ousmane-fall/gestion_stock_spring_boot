@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>facture Management System</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+	<div th:include="fragment/header.html"></div>
+	<div class="container">
+		<h1>facture Management System</h1>
+		<hr>
+		<h2>Update facture</h2>
+
+		<form action="#" th:action="@{/saveFacture}" th:object="${facture}"
+			method="POST">
+
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{idfacture}" /> <input type="text"
+				th:field="*{quantitefact}" class="form-control mb-4 col-4">
+				  <select
+				class="form-control mb-4 col-4" th:field="*{facturation}" required>
+				<th:block th:each="rl :${listesfacturation}">
+					<option th:value="${rl.idfacturation}" th:text="${rl.montant}" />
+					<th:block />
+			</select>
+
+			<button type="submit" class="btn btn-info col-2">Update facture</button>
+		</form>
+
+		<hr>
+
+		<a th:href="@{/factures}"> Back to facture List</a>
+	</div>
+</body>
+</html>

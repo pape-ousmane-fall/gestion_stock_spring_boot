@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Liste des Boutique</title>
+</head>
+<body>
+	<div th:include="fragment/header.html"></div>
+	<div class="container my-2">
+		<h1>Entree List</h1>
+		<a th:href="@{/showNewEntreeForm}"
+			class="btn btn-primary btn-sm mb-3"> Add Entree </a>
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th scope="col"><a
+						th:href="@{'/pagent/' + ${currentPage} + '?sortField=identree&sortDir=' + ${reverseSortDir}}">ID</a>
+					</th>
+					<th scope="col"><a
+						th:href="@{'/pagent/' + ${currentPage} + '?sortField=montant&sortDir=' + ${reverseSortDir}}">Montant</a>
+					</th>
+					<th scope="col"><a
+						th:href="@{'/pagent/' + ${currentPage} + '?sortField=date&sortDir=' + ${reverseSortDir}}">Date</a>
+					</th>
+					<th scope="col"><a>Produit</a></th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="rl :${listentree}">
+					<tr>
+
+
+						<td>[[${rl.identree}]]</td>
+
+						<td>[[${rl.montant}]]</td>
+						<td>[[${rl.date}]]</td>
+						<td>[[${rl.produits.libelle}]]</td>
+
+						<td><a
+							th:href="@{/showFormForEntreeUpdate/{id}(id=${rl.identree})}"
+							class="btn btn-primary">Update</a><a
+							th:href="@{/deleteEntree/{id}(id=${rl.identree})}"
+							class="btn btn-danger">Delete</a></td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+
+		<div th:if="${totalPages > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+				<div class="col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+						th:if="${currentPage != i}"
+						th:href="@{'/pagent/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+						&nbsp;
+					</span>
+				</div>
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalPages}"
+						th:href="@{'/pagent/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalPages}"
+						th:href="@{'/pagent/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
